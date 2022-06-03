@@ -28,7 +28,7 @@ export default function Todolist() {
     
         .then(res => {
             res.json().then(data => {
-                console.log('user:', data.user.email)
+                console.log(data.user.email)
                 const items = data.items
                     .filter(item => item.responsible_uid === data.user.id || item.project_id === data.user.inbox_project)
                     .filter(item => item.due)

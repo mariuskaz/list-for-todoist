@@ -1,24 +1,29 @@
 import './App.css';
 import Todolist from './Components/Todolist';
 
-// https://fonts.google.com/icons?selected=Material+Icons
-
 function App() {
   return (
-    <div className="App">
-      <div className="App-header">
-      <header className="App-bar">
+    <>
+      <div className="navbar">
         <i className="material-icons">menu</i>
-      </header>
-      <h3 style={{ marginLeft:'27.2%'}}>Today <span style={{ fontSize:'0.7em',fontWeight:'normal', marginLeft:'10px' }}>{ new Date().toLocaleDateString() }</span></h3>
       </div>
-      <div className="App-body">
-            <div style={{ fontSize:'0.8em', fontWeight:'bold' }}>Overdue</div>
-            <div style={{ height:'8px', borderBottom:'1px solid gainsboro' }} />
-            <Todolist/>
-            <br/><br/><br/><br/>
+      <div className="container">
+        <div className="side">
+          <p>Today</p>
+          <p>Next 7 days</p>
+        </div>
+        <div className="main">
+          <div className="content">
+            <div className="header">Today <span>{ new Date().toLocaleDateString() }</span></div>
+            <div className="list">
+                  <div className="section">Overdue</div>
+                  <div className="line"/>
+                  <Todolist/>
+            </div>
+          </div>      
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

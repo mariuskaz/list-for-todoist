@@ -1,19 +1,9 @@
-.App {
-  text-align: center;
+#root {
+  height:100vh;
+  overflow:hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-bar {
+.navbar {
   box-sizing: border-box;
   height: 44px;
   background-color: #3d3d3d;
@@ -29,30 +19,65 @@
   padding-right: 42px;
 }
 
-.App-header {
-  position:fixed;
-  width:100vw;
-  text-align:left;
-  background:white;
+.navbar i:hover {
+  background: hsla(0,0%,100%,.2);
+  cursor:pointer;
 }
 
-.App-body {
-  background:white;
-  width:45%;
-  text-align:left;
-  margin:auto;
-  overflow-x:hidden;
+.container {  
+  display: flex;
+  height: calc(100vh - 44px);
+}
+
+.side {
+  flex:0 0 200px;
+  font-size:0.9em;
+  background-color: whitesmoke;
+  padding:20px 42px;
+  height: calc(100vh - 44px);
+}
+
+.main {
+  display: flex;
+  flex:1 1 auto;
+  flex-direction: column;
+  background-color: white;
+  padding:0px 10% 150px;
   overflow-y:auto;
-  padding-top:120px;
 }
 
-.App-link {
-  color: #61dafb;
+.content {
+  min-width:600px;
+  max-width:800px;
+  margin:0 auto;
 }
 
-hr {
-  background-color:gainsboro;
-  border:none;
-  height:1px
+.header {
+  position:fixed;
+  background:white;
+  width:70%;
+  max-width: 750px;
+  padding:20px 0;
+  font-size:1.2em;
+  font-weight:bold;
 }
 
+.header span {
+  font-size:0.7em;
+  font-weight:normal;
+  margin-left:10px;
+}
+
+.list {
+  margin-top:80px;
+}
+
+.section {
+  font-size:0.8em;
+  font-weight:bold;
+}
+
+.line {
+  height:8px;
+  border-bottom:1px solid gainsboro;
+}
