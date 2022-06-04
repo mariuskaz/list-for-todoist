@@ -4,13 +4,14 @@ import './App.css';
 
 function App() {
   const [ todos, setTodos ] = useState([])
+  const [ status, setStatus ] = useState("Loading, please wait...")
   const today = new Date().setDate(new Date().getDate() - 1)
   const tomorrow = new Date().setDate(new Date().getDate() + 1)
   const overdueTodos = todos.filter( item =>  item.date < today )
   const todayTodos = todos.filter( item => item.date >= today && item.date < tomorrow )
   const upcomingTodos = todos.filter( item =>  item.date >= tomorrow )
     
-  function todoist_sync() {
+  function fetchTodoist() {
       let token = localStorage["todoist.token"],
       url = "https://api.todoist.com/sync/v8/sync",
 
@@ -45,17 +46,17 @@ function App() {
       })
 
       .catch(error => {
-          alert("Connection failed!");
+        setStatus("Connection error: " + error.message)
       })
 
   }
 
   useEffect( () => {
-      todoist_sync()
+      fetchTodoist()
   }, [])
 
   const onVisibilityChange = () => {
-    if (document.visibilityState === 'visible') todoist_sync()
+    if (document.visibilityState === 'visible') fetchTodoist()
   }
   
   useLayoutEffect(() => {
@@ -65,10 +66,8 @@ function App() {
 
   // https://blog.logrocket.com/react-suspense-data-fetching/
 
-  if (todos.length === 0) return <div className='loading'>Loading, please wait</div>
-
   return (
-    <>
+    <div className="app">
       <div className="navbar">
         <i className="material-icons">menu</i>
       </div>
@@ -79,6 +78,8 @@ function App() {
           <p><i className="material-icons">calendar_month</i>Calendar</p>
         </div>
         <div className="main">
+        { todos.length === 0 ?
+          <div className='loading'>{ status }</div> :
           <div className="content">
             <div className="header">Today <span>{ new Date().toLocaleDateString() }</span></div>
             <div className="list">
@@ -86,10 +87,11 @@ function App() {
                   <Todolist title={`Today - ${new Date().toString().substring(0,15)}`}  color={'green'} items={ todayTodos } />
                   <Todolist title={'Upcoming'} color={'green'} items={ upcomingTodos } />
             </div>
-          </div>      
+          </div>
+        }            
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

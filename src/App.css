@@ -14,14 +14,13 @@
   justify-content: left;
   flex-shrink: 0;
   border-bottom: 1px solid transparent;
-  padding-left: 42px;
+  padding-left: 32px;
   padding-right: 42px;
 }
 
 .navbar i {
-  border-radius: 15px;
   cursor:pointer;
-  padding:5px;
+  padding:10px;
 }
 
 .navbar i:hover {
@@ -99,8 +98,7 @@
 }
 
 .loading {
-  height: 80vh;
-  width: 100vw;
+  height: 200px;
   display:flex;
   align-items: center;
   justify-content: center;
