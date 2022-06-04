@@ -20,8 +20,10 @@
 }
 
 .navbar i:hover {
-  background: hsla(0,0%,100%,.2);
+  backgroundd: hsla(0,0%,100%,.2);
+  border-radius: 10px;
   cursor:pointer;
+  color:white;
 }
 
 .container {  
@@ -69,15 +71,16 @@
 }
 
 .list {
-  margin-top:80px;
+  margin-top:50px;
 }
 
 .section {
   font-size:0.8em;
   font-weight:bold;
+  padding-top:40px;
 }
 
 .line {
-  height:8px;
+  height:15px;
   border-bottom:1px solid gainsboro;
 }
