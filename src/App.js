@@ -7,12 +7,10 @@ function App() {
   const [ view, setView ] = useState(0)
   const [ status, setStatus ] = useState("Loading, please wait")
 
-  const LOADING_VIEW = 0
   const TODAY_VIEW = 1
   const NEXT_VIEW = 2
 
-    
-  function fetchTodoist() {
+  function fetchTodoist(reset = false) {
       let token = localStorage["todoist.token"],
       url = "https://api.todoist.com/sync/v8/sync",
 
@@ -42,7 +40,7 @@ function App() {
                   .sort((a, b) => a.due && b.due && a.due.date > b.due.date ? 1 : -1)
               setTodos(items)
               console.log('items:', items.length)
-              if (view === LOADING_VIEW) setView(TODAY_VIEW)
+              if (reset) setView(TODAY_VIEW)
           })
       })
 
@@ -53,7 +51,7 @@ function App() {
   }
 
   useEffect( () => {
-      fetchTodoist()
+      fetchTodoist(true)
   }, [])
 
   const onVisibilityChange = () => {
