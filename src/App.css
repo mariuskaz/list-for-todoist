@@ -3,6 +3,15 @@
   overflow:hidden;
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .navbar {
   box-sizing: border-box;
   height: 44px;
@@ -43,12 +52,18 @@
 .side p {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .side .material-icons {
   color: gray;
   font-size: 1.6em;
   margin-right: 10px;
+}
+
+.sidee p:hover {
+  background-color: lightgray;
+  padding:5px 20px;
 }
 
 .main {
@@ -62,7 +77,7 @@
 
 .content {
   min-width:600px;
-  max-width:800px;
+  width:800px;
   margin:0 auto;
 }
 
@@ -98,10 +113,10 @@
 }
 
 .loading {
-  height: 200px;
+  height: 400px;
   display:flex;
   align-items: center;
   justify-content: center;
-  font:calibri 1.4em normal;
+  font:1.5em calibri;
   color:gray;
 }
