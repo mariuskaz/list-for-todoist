@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 import Todolist from './Components/Todolist';
 import './App.css';
 
@@ -10,7 +10,7 @@ function App() {
   const todayTodos = todos.filter( item => item.date >= today && item.date < tomorrow )
   const upcomingTodos = todos.filter( item =>  item.date >= tomorrow )
     
-  function sync() {
+  function todoist_sync() {
       let token = localStorage["todoist.token"],
       url = "https://api.todoist.com/sync/v8/sync",
 
@@ -25,7 +25,7 @@ function App() {
       }
 
       console.log("sync...")
-      
+
       fetch(url, { 
           method: 'POST',
           headers : headers,
@@ -34,7 +34,6 @@ function App() {
   
       .then(res => {
           res.json().then(data => {
-              console.log(data.user.email)
               const items = data.items
                   .filter(item => item.responsible_uid === data.user.id || item.project_id === data.user.inbox_project)
                   .filter(item => item.due)
@@ -52,8 +51,21 @@ function App() {
   }
 
   useEffect( () => {
-      sync()
+      todoist_sync()
   }, [])
+
+  const onVisibilityChange = () => {
+    if (document.visibilityState === 'visible') todoist_sync()
+  }
+  
+  useLayoutEffect(() => {
+    document.addEventListener("visibilitychange", onVisibilityChange)
+    return () => document.removeEventListener("visibilitychange", onVisibilityChange)
+  }, [])
+
+  // https://blog.logrocket.com/react-suspense-data-fetching/
+
+  if (todos.length === 0) return <div className='loading'>Loading, please wait</div>
 
   return (
     <>
@@ -62,18 +74,17 @@ function App() {
       </div>
       <div className="container">
         <div className="side">
-          <p>Today</p>
-          <p>Next 7 days</p>
-          <p>Calendar
-          </p>
+          <p><i className="material-icons">event</i>Today</p>
+          <p><i className="material-icons">date_range</i>Next 7 days</p>
+          <p><i className="material-icons">calendar_month</i>Calendar</p>
         </div>
         <div className="main">
           <div className="content">
             <div className="header">Today <span>{ new Date().toLocaleDateString() }</span></div>
             <div className="list">
-                  <Todolist name={'Overdue'} color={'red'} items={ overdueTodos } />
-                  <Todolist name={`Today - ${new Date().toString().substring(0,15)}`}  color={'green'} items={ todayTodos } />
-                  <Todolist name={'Upcoming'} color={'green'} items={ upcomingTodos } />
+                  <Todolist title={'Overdue'} color={'red'} items={ overdueTodos } />
+                  <Todolist title={`Today - ${new Date().toString().substring(0,15)}`}  color={'green'} items={ todayTodos } />
+                  <Todolist title={'Upcoming'} color={'green'} items={ upcomingTodos } />
             </div>
           </div>      
         </div>

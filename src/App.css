@@ -14,16 +14,18 @@
   justify-content: left;
   flex-shrink: 0;
   border-bottom: 1px solid transparent;
-  transition: height .2s ease-in;
   padding-left: 42px;
   padding-right: 42px;
 }
 
-.navbar i:hover {
-  backgroundd: hsla(0,0%,100%,.2);
-  border-radius: 10px;
+.navbar i {
+  border-radius: 15px;
   cursor:pointer;
-  color:white;
+  padding:5px;
+}
+
+.navbar i:hover {
+  background: hsla(0,0%,100%,.2);
 }
 
 .container {  
@@ -37,6 +39,17 @@
   background-color: whitesmoke;
   padding:20px 42px;
   height: calc(100vh - 44px);
+}
+
+.side p {
+  display: flex;
+  align-items: center;
+}
+
+.side .material-icons {
+  color: gray;
+  font-size: 1.6em;
+  margin-right: 10px;
 }
 
 .main {
@@ -83,4 +96,14 @@
 .line {
   height:15px;
   border-bottom:1px solid gainsboro;
+}
+
+.loading {
+  height: 80vh;
+  width: 100vw;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font:calibri 1.4em normal;
+  color:gray;
 }
