@@ -6,12 +6,6 @@ function App() {
   const [ todos, setTodos ] = useState([])
   const [ view, setView ] = useState(0)
   const [ status, setStatus ] = useState("Loading, please wait")
-  const today = new Date().setDate(new Date().getDate() - 1)
-  const tomorrow = new Date().setDate(new Date().getDate() + 1)
-  const overdueTodos = todos.filter( item => item.due && new Date(item.due.date) < today )
-  const todayTodos = todos.filter( item => item.due && new Date(item.due.date) >= today && new Date(item.due.date) < tomorrow )
-  const upcomingTodos = todos.filter( item => item.due && new Date(item.due.date) >= tomorrow )
-  const notTodos = todos.filter( item => !item.due )
 
   const LOADING_VIEW = 0
   const TODAY_VIEW = 1
@@ -71,7 +65,44 @@ function App() {
     return () => document.removeEventListener("visibilitychange", onVisibilityChange)
   }, [])
 
-  // https://blog.logrocket.com/react-suspense-data-fetching/
+  function Content() {
+    const today = new Date().setDate(new Date().getDate() - 1)
+    const tomorrow = new Date().setDate(new Date().getDate() + 1)
+    
+    switch (view) {
+
+      case TODAY_VIEW:
+        const overdueTodos = todos.filter( item => item.due && new Date(item.due.date) < today )
+        const todayTodos = todos.filter( item => item.due && new Date(item.due.date) >= today && new Date(item.due.date) < tomorrow )
+        return (
+            <div className="content">
+              <div className="header">Today <span>{ new Date().toLocaleDateString() }</span></div>
+              <div className="list">
+                    <Todolist title={'Overdue'} color={'red'} items={ overdueTodos } />
+                    <Todolist title={`Today - ${new Date().toString().substring(0,15)}`}  color={'green'} items={ todayTodos } />
+              </div>
+            </div>
+        )
+
+      case NEXT_VIEW:
+        const upcomingTodos = todos.filter( item => item.due && new Date(item.due.date) >= tomorrow )
+        const notTodos = todos.filter( item => !item.due )
+        return (
+            <div className="content">
+              <div className="header">Upcoming</div>
+              <div className="list">
+                    <Todolist title={'Upcoming tasks'} color={'green'} items={ upcomingTodos } />
+                    <Todolist title={'Not sheduled'} color={'green'} items={ notTodos } />
+              </div>
+            </div>
+        )
+
+      default:
+        return (
+            <div className='loading'>{ status }</div> 
+        )
+    }
+  }
 
   return (
     <div className="app">
@@ -84,27 +115,8 @@ function App() {
           <p onClick={() => setView(NEXT_VIEW)}><i className="material-icons">date_range</i>Upcoming</p>
           <p><i className="material-icons">calendar_month</i>Calendar</p>
         </div>
-        <div className="main">
-        { view === LOADING_VIEW &&  
-          <div className='loading'>{ status }</div> }
-        { view === TODAY_VIEW && 
-          <div className="content">
-              <div className="header">Today <span>{ new Date().toLocaleDateString() }</span></div>
-              <div className="list">
-                    <Todolist title={'Overdue'} color={'red'} items={ overdueTodos } />
-                    <Todolist title={`Today - ${new Date().toString().substring(0,15)}`}  color={'green'} items={ todayTodos } />
-              </div>
-            </div>
-        }  
-        { view === NEXT_VIEW && 
-          <div className="content">
-              <div className="header">Upcoming</div>
-              <div className="list">
-                    <Todolist title={'Upcoming tasks'} color={'green'} items={ upcomingTodos } />
-                    <Todolist title={'Not sheduled'} color={'green'} items={ notTodos } />
-              </div>
-            </div>
-        }
+        <div className="main" key={view}>
+          <Content/>
         </div>
       </div>
     </div>
