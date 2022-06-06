@@ -34,6 +34,7 @@ a:hover {
 
 .navbar i:hover {
   background: hsla(0,0%,100%,.2);
+  color:whitesmoke;
 }
 
 .container {  
@@ -49,21 +50,21 @@ a:hover {
   height: calc(100vh - 44px);
 }
 
-.side p {
+p {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.side .material-icons {
+p:hover {
+  color:red;
+}
+
+.material-icons {
   color: gray;
   font-size: 1.6em;
   margin-right: 10px;
-}
-
-.sidee p:hover {
-  background-color: lightgray;
-  padding:5px 20px;
+  padding-top: 3px;
 }
 
 .main {
@@ -119,4 +120,18 @@ a:hover {
   justify-content: center;
   font:1.5em calibri;
   color:gray;
+}
+
+.commands {
+  color:gray;
+  font-size:0.9em;
+  padding-left:2px;
+}
+
+.commands:hover, .commands:hover .material-icons {
+  color:black
+}
+
+.next:hover {
+  color:darkgreen; /* #04AA6D; */
 }

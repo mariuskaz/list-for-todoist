@@ -1,6 +1,6 @@
 import Todo from './Todo'
 
-export default function Todolist({ title, items, color }) {
+export default function TodoList({ title, items, color }) {
     const listview = items.map( todo => {
         const desc = todo.content.split("](")[0].replace("[","")
         const due = todo.due ? new Date(todo.due.date).toLocaleDateString() : "not sheduled"

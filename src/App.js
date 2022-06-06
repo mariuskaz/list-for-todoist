@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react'
-import Todolist from './Components/Todolist';
 import './App.css';
+import React, { useEffect, useState, useLayoutEffect } from 'react'
+import TodoList from './Components/TodoList';
+import QuickTodo from './Components/QuickTodo';
 
 function App() {
   const [ todos, setTodos ] = useState([])
@@ -9,6 +10,7 @@ function App() {
 
   const TODAY_VIEW = 1
   const NEXT_VIEW = 2
+  const NODATE_VIEW = 3
 
   function fetchTodoist(reset = false) {
       let token = localStorage["todoist.token"],
@@ -64,40 +66,56 @@ function App() {
   }, [])
 
   function Content() {
-    const today = new Date().setDate(new Date().getDate() - 1)
-    const tomorrow = new Date().setDate(new Date().getDate() + 1)
-    
+    const overdue = new Date().setDate(new Date().getDate() - 1)
+    const today = new Date().setDate(new Date().getDate())
+    const tommorow = new Date().setDate(new Date().getDate() + 1)
+
     switch (view) {
 
       case TODAY_VIEW:
-        const overdueTodos = todos.filter( item => item.due && new Date(item.due.date) < today )
-        const todayTodos = todos.filter( item => item.due && new Date(item.due.date) >= today && new Date(item.due.date) < tomorrow )
+        const overdueTodos = todos.filter( item => item.due && new Date(item.due.date) < overdue )
+        const todayTodos = todos.filter( item => item.due && new Date(item.due.date) >= overdue && new Date(item.due.date) <= today )
         return (
             <div className="content">
               <div className="header">Today <span>{ new Date().toLocaleDateString() }</span></div>
               <div className="list">
-                    <Todolist title={'Overdue'} color={'red'} items={ overdueTodos } />
-                    <Todolist title={`Today - ${new Date().toString().substring(0,15)}`}  color={'green'} items={ todayTodos } />
+                    <TodoList title={'Overdue'} color={'red'} items={overdueTodos} />
+                    <TodoList title={`Today - ${new Date().toString().substring(0,10)}`}  color={'green'} items={todayTodos} />
+                    <QuickTodo/>
               </div>
             </div>
         )
 
       case NEXT_VIEW:
-        const upcomingTodos = todos.filter( item => item.due && new Date(item.due.date) >= tomorrow )
-        const notTodos = todos.filter( item => !item.due )
+        const tommorowTodos = todos.filter( item => item.due && new Date(item.due.date) > today && new Date(item.due.date) <= tommorow )
+        const upcomingTodos = todos.filter( item => item.due && new Date(item.due.date) > tommorow )
         return (
             <div className="content">
               <div className="header">Upcoming</div>
               <div className="list">
-                    <Todolist title={'Upcoming tasks'} color={'green'} items={ upcomingTodos } />
-                    <Todolist title={'Not sheduled'} color={'green'} items={ notTodos } />
+                    <TodoList title={'Tommorow'} color={'green'} items={tommorowTodos} />
+                    <QuickTodo/>
+                    <TodoList title={'Next week'} color={'green'} items={upcomingTodos} />
+                    <QuickTodo/>
               </div>
             </div>
         )
 
+        case NODATE_VIEW:
+          const notTodos = todos.filter( item => !item.due )
+          return (
+              <div className="content">
+                <div className="header">Not sheduled</div>
+                <div className="list">
+                      <TodoList title={'No due date'} color={'green'} items={notTodos} />
+                      <QuickTodo/>
+                </div>
+              </div>
+          )
+
       default:
         return (
-            <div className='loading'>{ status }</div> 
+            <div className='loading'>{status}</div> 
         )
     }
   }
@@ -111,6 +129,7 @@ function App() {
         <div className="side">
           <p onClick={() => setView(TODAY_VIEW)}><i className="material-icons">event</i>Today</p>
           <p onClick={() => setView(NEXT_VIEW)}><i className="material-icons">date_range</i>Upcoming</p>
+          <p onClick={() => setView(NODATE_VIEW)}><i className="material-icons">inbox</i>Not sheduled</p>
           <p><i className="material-icons">calendar_month</i>Calendar</p>
         </div>
         <div className="main" key={view}>
