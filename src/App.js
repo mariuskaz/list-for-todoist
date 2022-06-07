@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState, useLayoutEffect } from 'react'
+import React, { useEffect, useState, useLayoutEffect, useRef } from 'react'
 import TodoList from './Components/TodoList';
 import QuickTodo from './Components/QuickTodo';
 
@@ -7,9 +7,11 @@ function App() {
   const [ todos, setTodos ] = useState([])
   const [ view, setView ] = useState(0)
   const [ status, setStatus ] = useState("Loading, please wait")
-
+  const [ scroll, setScroll ] = useState({})
+  const listview = useRef();
+  
   const TODAY_VIEW = 1
-  const NEXT_VIEW = 2
+  const UPCOMING_VIEW = 2
   const NODATE_VIEW = 3
 
   function fetchTodoist(reset = false) {
@@ -56,6 +58,10 @@ function App() {
       fetchTodoist(true)
   }, [])
 
+  useEffect( () => {
+     if (scroll[view]) listview.current.scrollTop  = scroll[view]
+  })
+
   const onVisibilityChange = () => {
     if (document.visibilityState === 'visible') fetchTodoist()
   }
@@ -64,6 +70,12 @@ function App() {
     document.addEventListener("visibilitychange", onVisibilityChange)
     return () => document.removeEventListener("visibilitychange", onVisibilityChange)
   }, [])
+
+  function changeView(view_id) {
+    const top = listview.current.scrollTop || 0
+    setScroll( values => { return {...values, [view] : top} })
+    setView(view_id)
+  }
 
   function Content() {
     const overdue = new Date().setDate(new Date().getDate() - 1)
@@ -86,7 +98,7 @@ function App() {
             </div>
         )
 
-      case NEXT_VIEW:
+      case UPCOMING_VIEW:
         const tommorowTodos = todos.filter( item => item.due && new Date(item.due.date) > today && new Date(item.due.date) <= tommorow )
         const upcomingTodos = todos.filter( item => item.due && new Date(item.due.date) > tommorow )
         return (
@@ -127,12 +139,12 @@ function App() {
       </div>
       <div className="container">
         <div className="side">
-          <p onClick={() => setView(TODAY_VIEW)}><i className="material-icons">event</i>Today</p>
-          <p onClick={() => setView(NEXT_VIEW)}><i className="material-icons">date_range</i>Upcoming</p>
-          <p onClick={() => setView(NODATE_VIEW)}><i className="material-icons">inbox</i>Not sheduled</p>
+          <p onClick={() => changeView(TODAY_VIEW)}><i className="material-icons">event</i>Today</p>
+          <p onClick={() => changeView(UPCOMING_VIEW)}><i className="material-icons">date_range</i>Upcoming</p>
+          <p onClick={() => changeView(NODATE_VIEW)}><i className="material-icons">inbox</i>Not sheduled</p>
           <p><i className="material-icons">calendar_month</i>Calendar</p>
         </div>
-        <div className="main" key={view}>
+        <div className="main" ref={listview}>
           <Content/>
         </div>
       </div>
