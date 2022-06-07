@@ -2,10 +2,8 @@ import React, { useRef, useState } from 'react'
 
 export default function QuickTodo({ due, sync }) {
   const [ active, setActive] = useState(false)
-  const inputBox = useRef()
 
   function addTask(event) {
-
     if (event.key === "Enter") {
       let task = { content: event.target.value, due_string: due || "" },
       token = localStorage["todoist.token"] || "none",
@@ -26,17 +24,16 @@ export default function QuickTodo({ due, sync }) {
 
       setActive(false)
 
-    } else if (event.key === "Escape") {
 
+    } else if (event.key === "Escape") {
       setActive(false)
     }
 
   }
 
   function Content() {
-    if (active) {
-      return <textarea rows="3" cols="50" autoFocus className ="inputbox" ref={inputBox} type="text" onKeyUp={(e) => addTask(e)} onBlur={() => setActive(false)}  />
-    }
+    if (active) 
+      return <textarea rows="3" cols="50" autoFocus placeholder="Task description" className ="inputbox" type="text" onKeyUp={(e) => addTask(e)} onBlur={() => setActive(false)}  />
     return <p className ="commands" onClick={() => {setActive(true)}}><i className="material-icons">add</i>Add task</p>
   }
   return (
