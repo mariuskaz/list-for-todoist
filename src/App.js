@@ -9,7 +9,7 @@ function App() {
   const [ status, setStatus ] = useState("Loading, please wait")
   const [ scroll, setScroll ] = useState({})
   const listview = useRef();
-  
+
   const TODAY_VIEW = 1
   const UPCOMING_VIEW = 2
   const NODATE_VIEW = 3
@@ -85,15 +85,15 @@ function App() {
     switch (view) {
 
       case TODAY_VIEW:
-        const overdueTodos = todos.filter( item => item.due && new Date(item.due.date) < overdue )
-        const todayTodos = todos.filter( item => item.due && new Date(item.due.date) >= overdue && new Date(item.due.date) <= today )
+        const overdueTodos = todos.filter( item => item.due && new Date(item.due.date) < overdue ).sort((a, b) => a.due && b.due && a.due.date > b.due.date ? 1 : -1)
+        const todayTodos = todos.filter( item => item.due && new Date(item.due.date) >= overdue && new Date(item.due.date) <= today ).reverse()
         return (
             <div className="content">
               <div className="header">Today <span>{ new Date().toLocaleDateString() }</span></div>
               <div className="list">
                     <TodoList title={'Overdue'} color={'red'} items={overdueTodos} />
                     <TodoList title={`Today - ${new Date().toString().substring(0,10)}`}  color={'green'} items={todayTodos} />
-                    <QuickTodo/>
+                    <QuickTodo sync={fetchTodoist} due="today"/>
               </div>
             </div>
         )
@@ -105,10 +105,10 @@ function App() {
             <div className="content">
               <div className="header">Upcoming</div>
               <div className="list">
-                    <TodoList title={'Tommorow'} color={'green'} items={tommorowTodos} />
-                    <QuickTodo/>
+                    <TodoList title={'Tomorrow'} color={'green'} items={tommorowTodos} />
+                    <QuickTodo sync={fetchTodoist} due="tomorrow"/>
                     <TodoList title={'Next week'} color={'green'} items={upcomingTodos} />
-                    <QuickTodo/>
+                    <QuickTodo sync={fetchTodoist} due="monday"/>
               </div>
             </div>
         )
@@ -120,7 +120,7 @@ function App() {
                 <div className="header">Not sheduled</div>
                 <div className="list">
                       <TodoList title={'No due date'} color={'green'} items={notTodos} />
-                      <QuickTodo/>
+                      <QuickTodo sync={fetchTodoist} />
                 </div>
               </div>
           )

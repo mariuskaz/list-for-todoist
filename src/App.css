@@ -132,6 +132,9 @@ p:hover {
   color:black
 }
 
-.next:hover {
-  color:darkgreen; /* #04AA6D; */
+.inputbox {
+  margin:20px 30px;
+  border: 1px solid gray;
+  outline: none;
+  font: 1em Calibri;
 }
