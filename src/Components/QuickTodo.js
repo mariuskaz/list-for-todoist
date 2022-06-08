@@ -33,7 +33,7 @@ export default function QuickTodo({ due, sync }) {
 
   function Content() {
     if (active) 
-      return <textarea rows="3" cols="50" autoFocus placeholder="Task description" className ="inputbox" type="text" onKeyUp={(e) => addTask(e)} onBlur={() => setActive(false)}  />
+      return <textarea rows="4" cols="109" autoFocus placeholder="Type and press Enter" className ="inputbox" type="text" onKeyUp={(e) => addTask(e)} onBlur={() => setActive(false)}  />
     return <p className ="commands" onClick={() => {setActive(true)}}><i className="material-icons">add</i>Add task</p>
   }
   return (

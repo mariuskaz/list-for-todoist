@@ -91,8 +91,8 @@ function App() {
             <div className="content">
               <div className="header">Today <span>{ new Date().toLocaleDateString() }</span></div>
               <div className="list">
-                    <TodoList title={'Overdue'} color={'red'} items={overdueTodos} />
-                    <TodoList title={`Today - ${new Date().toString().substring(0,10)}`}  color={'green'} items={todayTodos} />
+                    <TodoList title={'Overdue'} color={'red'} items={overdueTodos} sync={fetchTodoist} />
+                    <TodoList title={`Today - ${new Date().toString().substring(0,10)}`}  color={'green'} items={todayTodos} sync={fetchTodoist} />
                     <QuickTodo sync={fetchTodoist} due="today"/>
               </div>
             </div>
@@ -105,9 +105,9 @@ function App() {
             <div className="content">
               <div className="header">Upcoming</div>
               <div className="list">
-                    <TodoList title={'Tomorrow'} color={'green'} items={tommorowTodos} />
+                    <TodoList title={'Tomorrow'} color={'green'} items={tommorowTodos} sync={fetchTodoist} />
                     <QuickTodo sync={fetchTodoist} due="tomorrow"/>
-                    <TodoList title={'Next week'} color={'green'} items={upcomingTodos} />
+                    <TodoList title={'Next week'} color={'green'} items={upcomingTodos} sync={fetchTodoist} />
                     <QuickTodo sync={fetchTodoist} due="monday"/>
               </div>
             </div>
@@ -119,7 +119,7 @@ function App() {
               <div className="content">
                 <div className="header">Not sheduled</div>
                 <div className="list">
-                      <TodoList title={'No due date'} color={'green'} items={notTodos} />
+                      <TodoList title={'No due date'} color={'green'} items={notTodos} sync={fetchTodoist} />
                       <QuickTodo sync={fetchTodoist} />
                 </div>
               </div>

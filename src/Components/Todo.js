@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-export default function Todo({ todo, due, color, priority, open }) {
-    const [ checked, setChecked ] = useState(false),
+export default function Todo({ id, todo, due, color, priority, open, sync }) {
+    const [ checked, setChecked ] = useState(priority === 2),
     
     colors = [
-        "black", "lightgray", "#246fe0", "#eb8909", "#d1453b"
+        "black", "lightgray", "#246fe0", "#eb8909", "red", "#d1453b"
     ],
     
     style = { 
@@ -12,7 +12,8 @@ export default function Todo({ todo, due, color, priority, open }) {
         fontSize:'0.8em', 
         textAlign:'left', 
         overflow:'hidden', 
-        borderBottom:'1px solid gainsboro' 
+        borderBottom:'1px solid gainsboro' ,
+        userSelect:'none'
     },
 
     checkStyle= {
@@ -33,17 +34,43 @@ export default function Todo({ todo, due, color, priority, open }) {
         textDecoration: checked ? 'line-through' : 'none'
     }
 
+    function update() {
+        setChecked(!checked)
+
+        let token = localStorage["todoist.token"] || "",
+        headers = {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        data = {
+            priority: priority !== 2 ? 2 : 1
+        }
+
+        fetch('https://api.todoist.com/rest/v1/tasks/' + id, { 
+                method: 'POST',
+                headers : headers,
+                body: JSON.stringify(data)
+        })
+
+        .then(response => {
+            sync()
+        })
+    }
+
     function Checkmark() {
         if (checked) {
-            return <i className="material-icons" style={checkStyle} onClick={()=>setChecked(false)}>check_circle</i>
+            return <i className="material-icons" style={checkStyle} onClick={update}>check_circle</i>
         }
-        return <i className="material-icons" style={checkStyle} onClick={()=>setChecked(true)}>radio_button_unchecked</i>
+        return <i className="material-icons" style={checkStyle} onClick={update}>radio_button_unchecked</i>
+    }
+
+    function Content() {
+        return <div onClick={open} style={todoStyle}><span style={textStyle}>{ todo }</span><br/><small style={{color:color}}>{due}</small></div>
     }
 
     return (
         <div style={style}>
-            <Checkmark/>
-            <div onClick={open} style={todoStyle}><span style={textStyle}>{ todo }</span><br/><small style={{color:color}}>{due}</small></div>
+            <Checkmark/><Content/>
         </div>
     )
 }
