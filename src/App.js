@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState, useLayoutEffect, useRef } from 'react'
-import TodoList from './Components/TodoList';
+import TodosList from './Components/TodosList';
 import QuickTodo from './Components/QuickTodo';
 
 function App() {
@@ -89,10 +89,10 @@ function App() {
         const todayTodos = todos.filter( item => item.due && new Date(item.due.date) >= overdue && new Date(item.due.date) <= today ).reverse()
         return (
             <div className="content">
-              <div className="header">Today <span>{ new Date().toLocaleDateString() }</span></div>
+              <div className="header">Today <span style={{color:"gray"}}>{ new Date().toLocaleDateString() }</span></div>
               <div className="list">
-                    <TodoList title={'Overdue'} color={'red'} items={overdueTodos} sync={fetchTodoist} />
-                    <TodoList title={`Today - ${new Date().toString().substring(0,10)}`}  color={'green'} items={todayTodos} sync={fetchTodoist} />
+                    <TodosList title={'Overdue'} color={'red'} items={overdueTodos} sync={fetchTodoist} />
+                    <TodosList title={`Today - ${new Date().toString().substring(0,10)}`}  color={'green'} items={todayTodos} sync={fetchTodoist} />
                     <QuickTodo sync={fetchTodoist} due="today"/>
               </div>
             </div>
@@ -105,21 +105,21 @@ function App() {
             <div className="content">
               <div className="header">Upcoming</div>
               <div className="list">
-                    <TodoList title={'Tomorrow'} color={'green'} items={tommorowTodos} sync={fetchTodoist} />
+                    <TodosList title={'Tomorrow'} color={'green'} items={tommorowTodos} sync={fetchTodoist} />
                     <QuickTodo sync={fetchTodoist} due="tomorrow"/>
-                    <TodoList title={'Next week'} color={'green'} items={upcomingTodos} sync={fetchTodoist} />
+                    <TodosList title={'Next week'} color={'green'} items={upcomingTodos} sync={fetchTodoist} />
                     <QuickTodo sync={fetchTodoist} due="monday"/>
               </div>
             </div>
         )
 
         case NODATE_VIEW:
-          const notTodos = todos.filter( item => !item.due )
+          const notTodos = todos.filter( item => !item.due ).reverse()
           return (
               <div className="content">
                 <div className="header">Not sheduled</div>
                 <div className="list">
-                      <TodoList title={'No due date'} color={'green'} items={notTodos} sync={fetchTodoist} />
+                      <TodosList title={'No due date'} color={'green'} items={notTodos} sync={fetchTodoist} />
                       <QuickTodo sync={fetchTodoist} />
                 </div>
               </div>
@@ -135,7 +135,7 @@ function App() {
   return (
     <div className="app">
       <div className="navbar">
-        <i className="material-icons">menu</i>
+        <i className="material-icons-sharp">menu</i>
       </div>
       <div className="container">
         <div className="side">

@@ -4,7 +4,8 @@ export default function Todo({ id, todo, due, color, priority, open, sync }) {
     const [ checked, setChecked ] = useState(priority === 2),
     
     colors = [
-        "black", "lightgray", "#246fe0", "#eb8909", "red", "#d1453b"
+        // "black", "lightgray", "#246fe0", "#eb8909", "#d1453b"
+        "black", "lightgray", "#246fe0", "orange", "red"
     ],
     
     style = { 
