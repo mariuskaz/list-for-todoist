@@ -4,7 +4,6 @@ export default function Todo({ id, todo, due, color, priority, open, sync }) {
     const [ checked, setChecked ] = useState(priority === 2),
     
     colors = [
-        // "black", "lightgray", "#246fe0", "#eb8909", "#d1453b"
         "black", "lightgray", "#246fe0", "orange", "red"
     ],
     
@@ -59,6 +58,9 @@ export default function Todo({ id, todo, due, color, priority, open, sync }) {
     }
 
     function Checkmark() {
+        if (priority === 44) {
+            return <i className="material-icons" style={checkStyle} onClick={update}>cancel</i>
+        }
         if (checked) {
             return <i className="material-icons" style={checkStyle} onClick={update}>check_circle</i>
         }

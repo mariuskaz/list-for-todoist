@@ -114,12 +114,12 @@ p:hover {
 }
 
 .loading {
-  height: 400px;
+  height:500px;
   display:flex;
   align-items: center;
   justify-content: center;
   font:1.5em calibri;
-  color:gray;
+  color:gray
 }
 
 .commands {
@@ -132,8 +132,9 @@ p:hover {
   color:black
 }
 
-.inputbox {
-  margin:6px;
+.input-box {
+  margin:0px;
+  margin-top:15px;
   border: 1px solid lightgray;
   border-radius:6px;
   outline: none;
