@@ -15,7 +15,7 @@ function App() {
   const NODATE_VIEW = 3
 
   function fetchTodoist(reset = false) {
-      let token = localStorage["todoist.token"],
+      let token = localStorage["todoist.token"] || prompt("Todoist API token:"),
       url = "https://api.todoist.com/sync/v8/sync",
 
       headers = {
@@ -38,13 +38,17 @@ function App() {
   
       .then(res => {
           res.json().then(data => {
-              const items = data.items
-                  .filter(item => item.responsible_uid === data.user.id || item.project_id === data.user.inbox_project)
-                  .map(task => { return { id:task.id, content:task.content, due:task.due, priority:task.priority }})
-                  .sort((a, b) => a.due && b.due && a.due.date > b.due.date ? 1 : -1)
-              setTodos(items)
-              console.log('items:', items.length)
-              if (reset) setView(TODAY_VIEW)
+            if (!localStorage["todoist.token"]) 
+                localStorage.setItem("todoist.token", token)
+
+            const items = data.items
+                .filter(item => item.responsible_uid === data.user.id || item.project_id === data.user.inbox_project)
+                .map(task => { return { id:task.id, content:task.content, due:task.due, priority:task.priority }})
+                .sort((a, b) => a.due && b.due && a.due.date > b.due.date ? 1 : -1)
+                
+            setTodos(items)
+            console.log('items:', items.length)
+            if (reset) setView(TODAY_VIEW)
           })
       })
 
