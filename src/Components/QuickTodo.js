@@ -34,7 +34,7 @@ export default function QuickTodo({ due, sync }) {
 
   function InputBox() {
     if (active) 
-      return <textarea rows="4" cols="111" autoFocus placeholder="Type and press Enter" className ="input-box" type="text" onKeyUp={(e) => pushTask(e)} onBlur={() => setActive(false)}  />
+      return <textarea rows="4" cols="111" autoFocus placeholder="Type text and press Enter" className ="input-box" type="text" onKeyUp={(e) => pushTask(e)} onBlur={() => setActive(false)}  />
     return <p className ="commands" onClick={() => {setActive(true)}}><i className="material-icons">add</i>Add task</p>
   }
 

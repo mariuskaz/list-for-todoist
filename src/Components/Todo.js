@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Todo({ id, todo, due, color, priority, open, sync }) {
+export default function Todo({ id, todo, due, color, priority, project, open, sync }) {
     const [ checked, setChecked ] = useState(priority === 2),
     
     colors = [
@@ -19,7 +19,7 @@ export default function Todo({ id, todo, due, color, priority, open, sync }) {
     checkStyle= {
         color:colors[priority], 
         cursor:'pointer',
-        margin:'-2px 10px 5px 0px',
+        margin:'-2px 10px 0px 0px',
         verticalAlign:'top',
     },
 
@@ -68,7 +68,15 @@ export default function Todo({ id, todo, due, color, priority, open, sync }) {
     }
 
     function Content() {
-        return <div onClick={open} style={todoStyle}><span style={textStyle}>{ todo }</span><br/><small style={{color:color}}>{due}</small></div>
+        return (
+            <div onClick={open} style={todoStyle}>
+                <span style={textStyle}>{ todo }</span><br/>
+                <small style={{color}}>{due}</small>
+                <span style={{float:'right', color:'gray', display:'inline-block'}}><small>
+                    { project.length < 28 ? project : project.substring(0,28).trim() + '..' }
+                </small></span>
+            </div>
+        )
     }
 
     return (

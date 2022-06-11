@@ -85,8 +85,7 @@ p:hover {
 .header {
   position:fixed;
   background:white;
-  width:70%;
-  max-width: 750px;
+  width:100%;
   padding:20px 0;
   font-size:1.2em;
   font-weight:bold;
@@ -139,4 +138,10 @@ p:hover {
   border-radius:6px;
   outline: none;
   font: 1em Calibri;
+}
+
+::placeholder {
+  color:#888;
+  font-weight: lighter;
+  opacity: 1;
 }

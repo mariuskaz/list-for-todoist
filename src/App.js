@@ -25,7 +25,7 @@ function App() {
 
       params = {
           sync_token: '*',
-          resource_types: ["user","items"]
+          resource_types: ["user","items","projects"]
       }
 
       console.log("sync...")
@@ -40,10 +40,13 @@ function App() {
           res.json().then(data => {
             if (!localStorage["todoist.token"]) 
                 localStorage.setItem("todoist.token", token)
+                
+            let  projects = {}
+            data.projects.forEach( project => projects[project.id] = project.name )
 
             const items = data.items
                 .filter(item => item.responsible_uid === data.user.id || item.project_id === data.user.inbox_project)
-                .map(task => { return { id:task.id, content:task.content, due:task.due, priority:task.priority }})
+                .map(task => { return { id:task.id, content:task.content, due:task.due, priority:task.priority, project: projects[task.project_id] }})
                 .sort((a, b) => a.due && b.due && a.due.date > b.due.date ? 1 : -1)
                 
             setTodos(items)
