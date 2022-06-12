@@ -7,8 +7,12 @@ export default function TodosList({ title, items, color, sync }) {
         const due = todo.due ? new Date(todo.due.date).toLocaleDateString() : "not sheduled"
         const priority = todo.priority
         const project = todo.project
-        return <Todo key={todo.id} open={()=>openTask(todo.id)} sync={sync}
-                todo={desc} due={due} color={color} priority={priority} project={project} />
+        return <Todo key={todo.id} 
+                sync={sync}
+                open={()=>openTask(todo.id)} 
+                id={id} todo={desc} due={due} 
+                color={color} priority={priority}
+                project={project} />
     })
 
     function openTask(id) {
