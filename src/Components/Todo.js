@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Todo({ id, todo, due, color, priority, project, open, sync }) {
+export default function Todo({ id, todo, due, color, priority, project, open, browse, sync }) {
     const [ checked, setChecked ] = useState(priority === 2),
     
     colors = [
@@ -26,12 +26,19 @@ export default function Todo({ id, todo, due, color, priority, project, open, sy
     todoStyle =  { 
         display:'inline-block', 
         width:'94%', 
-        cursor:'pointer' ,
     },
 
     textStyle = {
         color: checked ? "gray" : 'black',
+        cursor:'pointer',
         textDecoration: checked ? 'line-through' : 'none'
+    },
+
+    projectStyle = {
+        float:'right', 
+        color:'gray', 
+        cursor:'pointer',
+        display:'inline-block'
     }
 
     function update() {
@@ -69,12 +76,14 @@ export default function Todo({ id, todo, due, color, priority, project, open, sy
 
     function Content() {
         return (
-            <div onClick={open} style={todoStyle}>
-                <span style={textStyle}>{ todo }</span><br/>
+            <div style={todoStyle}>
+                <span onClick={open} style={textStyle}>
+                    {todo}
+                </span><br/>
                 <small style={{color}}>{due}</small>
-                <span style={{float:'right', color:'gray', display:'inline-block'}}><small>
-                    { project.length < 28 ? project : project.substring(0,28).trim() + '..' }
-                </small></span>
+                <span onClick={browse} style={projectStyle}><small>
+                    {project}
+                </small>&nbsp;&#9741;</span>
             </div>
         )
     }

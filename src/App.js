@@ -46,7 +46,7 @@ function App() {
 
             const items = data.items
                 .filter(item => item.responsible_uid === data.user.id || item.project_id === data.user.inbox_project)
-                .map(task => { return { id:task.id, content:task.content, due:task.due, priority:task.priority, project: projects[task.project_id] }})
+                .map(task => { return { id:task.id, content:task.content, due:task.due, priority:task.priority, project: { id:task.project_id, name:projects[task.project_id] } }})
                 .sort((a, b) => a.due && b.due && a.due.date > b.due.date ? 1 : -1)
                 
             setTodos(items)
@@ -67,7 +67,7 @@ function App() {
 
   useEffect( () => {
      if (scroll[view]) listview.current.scrollTop  = scroll[view]
-  })
+  }, [scroll, view])
 
   const onVisibilityChange = () => {
     if (document.visibilityState === 'visible') fetchTodoist()
@@ -82,6 +82,7 @@ function App() {
     const top = listview.current.scrollTop || 0
     setScroll( values => { return {...values, [view] : top} })
     setView(view_id)
+    if (scroll[view]) listview.current.scrollTop  = scroll[view]
   }
 
   function Content() {
