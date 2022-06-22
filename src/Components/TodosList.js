@@ -6,7 +6,7 @@ export default function TodosList({ title, items, color, sync }) {
         const desc = todo.content.split("](")[0].replace("[","")
         const due = todo.due ? new Date(todo.due.date).toLocaleDateString() : "not sheduled"
         const priority = todo.priority
-        const project = todo.project.name.length < 28 ? todo.project.name : todo.project.name.substring(0,28).trim() + '..'
+        const project = todo.project.name.length <= 28 ? todo.project.name : todo.project.name.substring(0,28).trim() + '...'
         const projectId = todo.project.id
         return <Todo key={todo.id} 
                 sync={sync}
@@ -26,7 +26,7 @@ export default function TodosList({ title, items, color, sync }) {
 
     return (
         <>
-            <div className="section">{ title }</div>
+            <div className="section">{ title }<span>{ items.length }</span></div>
             <div className="line"/>
             <div>{ listview }</div>
         </>

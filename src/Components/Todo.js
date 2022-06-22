@@ -4,11 +4,11 @@ export default function Todo({ id, todo, due, color, priority, project, open, br
     const [ checked, setChecked ] = useState(priority === 2),
     
     colors = [
-        "black", "lightgray", "#246fe0", "orange", "red"
+        "black", "lightgray", "#246fe0", "orange", "crimson"
     ],
     
     style = { 
-        padding:'10px 5px 10px', 
+        padding:'7px 4px', 
         fontSize:'0.8em', 
         textAlign:'left', 
         overflow:'hidden', 
@@ -25,7 +25,7 @@ export default function Todo({ id, todo, due, color, priority, project, open, br
 
     todoStyle =  { 
         display:'inline-block', 
-        width:'94%', 
+        width:'96%', 
     },
 
     textStyle = {
@@ -65,7 +65,7 @@ export default function Todo({ id, todo, due, color, priority, project, open, br
     }
 
     function Checkmark() {
-        if (priority === 44) {
+        if (priority === 4) {
             return <i className="material-icons" style={checkStyle} onClick={update}>cancel</i>
         }
         if (checked) {
@@ -77,13 +77,9 @@ export default function Todo({ id, todo, due, color, priority, project, open, br
     function Content() {
         return (
             <div style={todoStyle}>
-                <span onClick={open} style={textStyle}>
-                    {todo}
-                </span><br/>
+                <span onClick={open} style={textStyle}>{todo}</span><br/>
                 <small style={{color}}>{due}</small>
-                <span onClick={browse} style={projectStyle}><small>
-                    {project}
-                </small>&nbsp;&#9741;</span>
+                <span onClick={browse} style={projectStyle}>{project}&nbsp;&#9741;</span>
             </div>
         )
     }

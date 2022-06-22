@@ -6,13 +6,14 @@ import QuickTodo from './Components/QuickTodo';
 function App() {
   const [ todos, setTodos ] = useState([])
   const [ view, setView ] = useState(0)
-  const [ status, setStatus ] = useState("Loading tasks")
+  const [ status, setStatus ] = useState("Loading, please wait")
   const [ scroll, setScroll ] = useState({})
   const listview = useRef();
 
   const TODAY_VIEW = 1
   const UPCOMING_VIEW = 2
   const NODATE_VIEW = 3
+  const CALENDAR_VIEW = 4
 
   function fetchTodoist(reset = false) {
       let token = localStorage["todoist.token"] || prompt("Todoist API token:"),
@@ -86,29 +87,29 @@ function App() {
   }
 
   function Content() {
-    const overdue = new Date().setDate(new Date().getDate() - 1)
-    const today = new Date().setDate(new Date().getDate())
-    const tommorow = new Date().setDate(new Date().getDate() + 1)
+    const today = new Date().setHours(0,0,0)
+    const tommorow = new Date().setHours(24,0,0)
+    const upcoming = new Date().setHours(48,0,0)
 
     switch (view) {
 
       case TODAY_VIEW:
-        const overdueTodos = todos.filter( item => item.due && new Date(item.due.date) < overdue ).sort((a, b) => a.due && b.due && a.due.date > b.due.date ? 1 : -1)
-        const todayTodos = todos.filter( item => item.due && new Date(item.due.date) >= overdue && new Date(item.due.date) <= today ).reverse()
+        const overdueTodos = todos.filter( item => item.due && new Date(item.due.date) < today ).sort((a, b) => a.due && b.due && a.due.date > b.due.date ? 1 : -1)
+        const todayTodos = todos.filter( item => item.due && new Date(item.due.date) >= today && new Date(item.due.date) < tommorow ).reverse()
         return (
             <div className="content">
               <div className="header">Today <span style={{color:"gray"}}>{ new Date().toLocaleDateString() }</span></div>
               <div className="list">
                     <TodosList title={'Overdue'} color={'red'} items={overdueTodos} sync={fetchTodoist} />
-                    <TodosList title={`Today - ${new Date().toString().substring(0,10)}`}  color={'green'} items={todayTodos} sync={fetchTodoist} />
+                    <TodosList title={`${new Date().toString().substring(0,10)} - Today`}  color={'green'} items={todayTodos} sync={fetchTodoist} />
                     <QuickTodo sync={fetchTodoist} due="today"/>
               </div>
             </div>
         )
 
       case UPCOMING_VIEW:
-        const tommorowTodos = todos.filter( item => item.due && new Date(item.due.date) > today && new Date(item.due.date) <= tommorow )
-        const upcomingTodos = todos.filter( item => item.due && new Date(item.due.date) > tommorow )
+        const tommorowTodos = todos.filter( item => item.due && new Date(item.due.date) >= tommorow && new Date(item.due.date) < upcoming )
+        const upcomingTodos = todos.filter( item => item.due && new Date(item.due.date) >= upcoming )
         return (
             <div className="content">
               <div className="header">Upcoming</div>
@@ -121,17 +122,24 @@ function App() {
             </div>
         )
 
-        case NODATE_VIEW:
-          const notTodos = todos.filter( item => !item.due ).reverse()
-          return (
-              <div className="content">
-                <div className="header">Not sheduled</div>
-                <div className="list">
-                      <TodosList title={'No due date'} color={'green'} items={notTodos} sync={fetchTodoist} />
-                      <QuickTodo sync={fetchTodoist} />
-                </div>
+      case NODATE_VIEW:
+        const notTodos = todos.filter( item => !item.due ).reverse()
+        return (
+            <div className="content">
+              <div className="header">Not sheduled</div>
+              <div className="list">
+                    <TodosList title={'No due date'} color={'green'} items={notTodos} sync={fetchTodoist} />
+                    <QuickTodo sync={fetchTodoist} />
               </div>
-          )
+            </div>
+        )
+
+      case CALENDAR_VIEW:
+        return (
+          <div>
+
+          </div>
+        )
 
       default:
         return (

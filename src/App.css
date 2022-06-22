@@ -87,7 +87,7 @@ p:hover {
   background:white;
   width:800px;
   padding:20px 0;
-  font-size:1.2em;
+  font-size:1.1em;
   font-weight:bold;
 }
 
@@ -102,9 +102,16 @@ p:hover {
 }
 
 .section {
-  font-size:0.9em;
+  font-size:0.8em;
   font-weight:bold;
   padding-top:40px;
+}
+
+.section span {
+  font-size:small;
+  font-weight: normal;
+  color:gray;
+  margin-left:10px;
 }
 
 .line {
@@ -117,7 +124,7 @@ p:hover {
   display:flex;
   align-items: center;
   justify-content: center;
-  font:1.5em calibri;
+  font:1.2em calibri;
   color:gray
 }
 
