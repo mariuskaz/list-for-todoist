@@ -77,7 +77,7 @@ function App() {
   useLayoutEffect(() => {
     document.addEventListener("visibilitychange", onVisibilityChange)
     return () => document.removeEventListener("visibilitychange", onVisibilityChange)
-  }, [])
+  })
 
   function changeView(view_id) {
     const top = listview.current.scrollTop || 0
