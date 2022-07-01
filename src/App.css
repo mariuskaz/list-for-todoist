@@ -73,6 +73,7 @@ p:hover {
   flex-direction: column;
   background-color: white;
   padding:0px 10% 150px;
+  overflow-x:hidden;
   overflow-y:auto;
 }
 
