@@ -155,7 +155,7 @@ p:hover {
 }
 
 /* For Mobile Portrait View */
-@media screen and (max-device-width: 480px) and (orientation: portrait) {
+@media screen and (orientation: portrait) {
   .side {
     display:none;
   }
