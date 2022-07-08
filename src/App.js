@@ -9,6 +9,7 @@ function App() {
   const [ status, setStatus ] = useState("Loading, please wait")
   const [ scroll, setScroll ] = useState({})
   const listview = useRef();
+  const sidebar = useRef();
 
   const TODAY_VIEW = 1
   const UPCOMING_VIEW = 2
@@ -151,10 +152,10 @@ function App() {
   return (
     <div className="app">
       <div className="navbar">
-        <i className="material-icons-sharp">menu</i>
+        <i className="material-icons-sharp app-menu">menu</i>
       </div>
       <div className="container">
-        <div className="side">
+        <div className="side" ref={sidebar}>
           <p onClick={() => changeView(TODAY_VIEW)}><i className="material-icons">event</i>Today</p>
           <p onClick={() => changeView(UPCOMING_VIEW)}><i className="material-icons">date_range</i>Upcoming</p>
           <p onClick={() => changeView(NODATE_VIEW)}><i className="material-icons">inbox</i>Not sheduled</p>

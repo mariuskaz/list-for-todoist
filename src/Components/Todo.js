@@ -25,7 +25,7 @@ export default function Todo({ id, todo, due, color, priority, project, open, br
 
     todoStyle =  { 
         display:'inline-block', 
-        width:'96%', 
+        width: 'calc(100% - 31px)', 
     },
 
     textStyle = {

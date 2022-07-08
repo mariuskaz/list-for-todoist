@@ -78,8 +78,8 @@ p:hover {
 }
 
 .content {
-  min-width:600px;
   width:800px;
+  max-width:800px;
   margin:0 auto;
 }
 
@@ -152,4 +152,36 @@ p:hover {
   color:#888;
   font-weight: lighter;
   opacity: 1;
+}
+
+/* For Mobile Portrait View */
+@media screen and (max-device-width: 480px) and (orientation: portrait) {
+  .side {
+    display:none;
+  }
+  .main {
+    padding: 0px 10px 150px;
+  }
+  .content {
+    width:100%;
+  }
+  .navbar {
+    padding-left:0;
+  }
+}
+
+/* For Mobile Landscape View */
+@media screen and (max-device-width: 800px) and (orientation: landscape) {
+  .side {
+    display:none;
+  }
+  .main {
+    padding: 0px 10px 150px;
+  }
+  .content {
+    width:100%;
+  }
+  .navbar {
+    padding-left:0;
+  }
 }
