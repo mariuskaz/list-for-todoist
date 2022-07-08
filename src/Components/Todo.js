@@ -79,7 +79,7 @@ export default function Todo({ id, todo, due, color, priority, project, open, br
             <div style={todoStyle}>
                 <span onClick={open} style={textStyle}>{todo}</span><br/>
                 <small style={{color}}>{due}</small>
-                <span onClick={browse} style={projectStyle}>{project}&nbsp;&#9741;</span>
+                <span onClick={browse} style={projectStyle}>{project}</span>
             </div>
         )
     }
