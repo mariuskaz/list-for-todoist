@@ -90,7 +90,7 @@ function App() {
   }
 
   function toggleMenu() {
-    if (sidebar.current.style.marginLeft == "0px") {
+    if (sidebar.current.style.marginLeft === "0px") {
       sidebar.current.style.marginLeft = "-280px"
       setToggle(true)
     } else {
