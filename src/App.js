@@ -8,8 +8,9 @@ function App() {
   const [ view, setView ] = useState(0)
   const [ status, setStatus ] = useState("Loading, please wait")
   const [ scroll, setScroll ] = useState({})
-  const listview = useRef();
-  const sidebar = useRef();
+  const [ toggle, setToggle ] = useState(false)
+  const listview = useRef()
+  const sidebar = useRef()
 
   const TODAY_VIEW = 1
   const UPCOMING_VIEW = 2
@@ -84,7 +85,18 @@ function App() {
     const top = listview.current.scrollTop || 0
     setScroll( values => { return {...values, [view] : top} })
     setView(view_id)
+    if (toggle) sidebar.current.style.marginLeft = "-280px"
     if (scroll[view]) listview.current.scrollTop  = scroll[view]
+  }
+
+  function toggleMenu() {
+    if (sidebar.current.style.marginLeft == "0px") {
+      sidebar.current.style.marginLeft = "-280px"
+      setToggle(true)
+    } else {
+      sidebar.current.style.marginLeft = "0px"
+      setToggle(true)
+    }
   }
 
   function Content() {
@@ -152,7 +164,7 @@ function App() {
   return (
     <div className="app">
       <div className="navbar">
-        <i className="material-icons-sharp app-menu">menu</i>
+        <i className="material-icons-sharp app-menu" onClick={toggleMenu}>menu</i>
       </div>
       <div className="container">
         <div className="side" ref={sidebar}>
