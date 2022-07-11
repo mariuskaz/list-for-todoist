@@ -6,7 +6,7 @@ import QuickTodo from './Components/QuickTodo';
 function App() {
   const [ todos, setTodos ] = useState([])
   const [ view, setView ] = useState(0)
-  const [ status, setStatus ] = useState("Loading, please wait")
+  const [ status, setStatus ] = useState("Loading")
   const [ scroll, setScroll ] = useState({})
   const [ toggle, setToggle ] = useState(false)
   const listview = useRef()
