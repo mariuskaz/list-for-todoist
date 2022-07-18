@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 export default function QuickTodo({ due, sync }) {
-  const [ active, setActive] = useState(false)
+  const [ active, setActive ] = useState(false)
 
   function pushTask(event) {
     if (event.key === "Enter") {
@@ -33,7 +33,7 @@ export default function QuickTodo({ due, sync }) {
   }
 
   function InputBox() {
-    if (active) return <textarea rows="4" cols="111" autoFocus placeholder="Type text and press Enter" className ="input-box"  onKeyDownCapture={(e) => pushTask(e)} onBlur={() => setActive(false)}  />
+    if (active) return <div><textarea rows="4" autoFocus placeholder="Type text and press Enter" className ="input-box"  onKeyDownCapture={(e) => pushTask(e)} onBlur={() => setActive(false)}  /></div>
     else return <p className ="commands" onClick={() => {setActive(true)}}><i className="material-icons">add</i>Add task</p>
   }
 
