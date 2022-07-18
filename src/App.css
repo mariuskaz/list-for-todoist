@@ -155,6 +155,50 @@ p:hover {
   opacity: 1;
 }
 
+
+.spinner {
+	width: 120px;
+	height: 120px;
+	left:0;right:0;
+	top:0;bottom:0;
+	margin:auto;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+ }
+ 
+ .spinner-circle {
+	position:absolute;
+	border-radius: 50%;
+	border-top: 1px solid black;
+	width: 120px;
+	height: 120px;
+	-webkit-animation: spin 2s linear infinite; /* Safari */
+	animation: spin 1s linear infinite;
+  }
+
+  .spinner-text {
+    text-align: center;
+    font-family: roboto, sans-serif, "Helvetica Neue", "Lucida Grande", Arial;
+    color: #303030;
+    width: 120px;
+    font-size: 11pt;
+	text-transform:uppercase;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+  
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+
+
 /* For Mobile Portrait View */
 @media screen and (orientation: portrait) {
   .side {

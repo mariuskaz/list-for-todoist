@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState, useLayoutEffect, useRef } from 'react'
 import TodosList from './Components/TodosList';
 import QuickTodo from './Components/QuickTodo';
+import Spinner from './Components/Spinner';
 
 function App() {
   const [ todos, setTodos ] = useState([])
@@ -156,7 +157,7 @@ function App() {
 
       default:
         return (
-            <div className='loading'>{status}</div> 
+            <Spinner text={status}/> 
         )
     }
   }
