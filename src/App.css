@@ -208,11 +208,11 @@ textarea {
   cursor:pointer;
   color:gray;
   display:inline-block;
-  padding:5px 10px 7px;
+  padding:5px 10px 6px;
   min-width: 50px;
   text-align:center;
   margin-top:2px;
-  font: 1em Calibri;
+  font: 0.9em Calibri;
 }
 
 .my-button:hover {
