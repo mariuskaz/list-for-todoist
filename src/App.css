@@ -203,7 +203,7 @@ textarea {
 	100% { transform: rotate(360deg); }
 }
 
-.my-button {
+.buttons {
   border-radius: 4px;
   cursor:pointer;
   color:gray;
@@ -215,7 +215,7 @@ textarea {
   font: 0.9em Calibri;
 }
 
-.my-button:hover {
+.buttons:hover {
   color:black;
 }
 
