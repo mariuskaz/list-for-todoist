@@ -73,7 +73,7 @@ p:hover {
   flex:1 1 auto;
   flex-direction: column;
   background-color: white;
-  padding:0px 10% 150px;
+  padding-bottom:150px;
   overflow-x:hidden;
   overflow-y:auto;
 }
@@ -146,7 +146,7 @@ p:hover {
   border: 1px solid lightgray;
   border-radius:6px;
   outline: none;
-  font: 1em Calibri;
+  font: 0.8em Calibri;
 }
 
 ::placeholder {

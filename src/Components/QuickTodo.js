@@ -36,7 +36,7 @@ export default function QuickTodo({ due, sync }) {
   function InputBox() {
     if (active) return (
       <div>
-        <textarea rows="4" autoFocus placeholder="Task description" className ="input-box" onKeyDownCapture={(e) => handleInput(e)} ref={input} />
+        <textarea rows="4" autoFocus placeholder="Type task description" className ="input-box" onKeyDownCapture={(e) => handleInput(e)} ref={input} />
         <div className="my-button dark-theme" onClick={pushTask}>Save</div>
         <div className="my-button" onClick={() => setActive(false)}>Cancel</div>
       </div>
