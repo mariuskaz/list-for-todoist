@@ -86,18 +86,14 @@ function App() {
     const top = listview.current.scrollTop || 0
     setScroll( values => { return {...values, [view] : top} })
     setView(view_id)
+    listview.current.scrollTop  = scroll[view] || 0
     if (toggle) sidebar.current.style.marginLeft = "-280px"
-    if (scroll[view]) listview.current.scrollTop  = scroll[view]
   }
 
   function toggleMenu() {
-    if (sidebar.current.style.marginLeft === "0px") {
-      sidebar.current.style.marginLeft = "-280px"
-      setToggle(true)
-    } else {
-      sidebar.current.style.marginLeft = "0px"
-      setToggle(true)
-    }
+    const margin = sidebar.current.style.marginLeft
+    sidebar.current.style.marginLeft = margin === "0px" ? "-280px" :  "0px"
+    setToggle(true)
   }
 
   function Content() {
