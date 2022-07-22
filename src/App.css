@@ -147,7 +147,7 @@ p:hover {
   border: 1px solid lightgray;
   border-radius:6px;
   outline: none;
-  font: 0.8em Calibri;
+  font: 0.9em Calibri;
 }
 
 ::placeholder {

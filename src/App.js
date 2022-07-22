@@ -18,7 +18,7 @@ function App() {
   const NODATE_VIEW = 3
   const CALENDAR_VIEW = 4
 
-  function fetchTodoist(reset = false) {
+  function fetchTodoist() {
       let token = localStorage["todoist.token"] || prompt("Todoist API token:"),
       url = "https://api.todoist.com/sync/v8/sync",
 
@@ -55,7 +55,7 @@ function App() {
                 
             setTodos(items)
             console.log('items:', items.length)
-            if (reset) setView(TODAY_VIEW)
+            if (view === 0) setView(TODAY_VIEW)
           })
       })
 
@@ -66,7 +66,7 @@ function App() {
   }
 
   useEffect( () => {
-      fetchTodoist(true)
+      fetchTodoist()
   }, [])
 
   useEffect( () => {
