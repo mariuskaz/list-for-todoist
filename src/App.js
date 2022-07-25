@@ -86,7 +86,7 @@ function App() {
     const top = listview.current.scrollTop || 0
     setScroll( values => { return {...values, [view] : top} })
     setView(view_id)
-    listview.current.scrollTop  = scroll[view] || 0
+    document.scrollTop  = scroll[view] || 0
     if (toggle) sidebar.current.style.marginLeft = "-280px"
   }
 
